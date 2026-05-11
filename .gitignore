@@ -1,0 +1,142 @@
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================
+# ENTORNO VIRTUAL
+# ============================================
+venv/
+ENV/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# ============================================
+# ARCHIVOS DE ENTORNO (CRÍTICO - NUNCA SUBIR)
+# ============================================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# ============================================
+# FASTAPI / ASYNC
+# ============================================
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs
+*.log
+logs/
+log/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ============================================
+# EDITORES / IDES
+# ============================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Linux
+*~
+.nfs*
+
+# ============================================
+# PROYECTO ESPECÍFICO (FinTrack Admin)
+# ============================================
+# Base de datos local (si usás SQLite para tests)
+fintrack.db
+admin.db
+
+# Archivos de upload temporal
+uploads/
+temp/
+tmp/
+
+# Archivos generados
+*.csv
+*.xlsx
+*.pdf
+!plantillas/*.pdf
+
+# ============================================
+# DOCKER (si agregás después)
+# ============================================
+docker-compose.override.yml
+.dockerignore
