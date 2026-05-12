@@ -18,6 +18,21 @@ class SesionesActivas(Base):
     # Relación opcional (si quieres acceder a datos del usuario)
     # usuario = relationship("Usuarios", back_populates="sesiones")
 
+
+class Empresas(Base):
+    __tablename__ = "Empresas"  # Mismo nombre que Django
+    
+    Id = Column(Integer, primary_key=True)
+    NombreEmpresa= Column(String(300))
+    Ruc= Column(String(50))
+    UrlImg = Column(String(200))
+    FechaRegistro = Column(DateTime, index=True)
+    
+    
+    # Relación opcional (si quieres acceder a datos del usuario)
+    # usuario = relationship("Usuarios", back_populates="sesiones")
+
+
 class AuthUser(Base):
     """Tabla auth_user de Django - solo campos que necesitamos"""
     __tablename__ = "auth_user"

@@ -22,7 +22,7 @@ class Settings:
     DB_HOST: str = config('DB_HOST')
     DB_NAME: str = config('DB_NAME')
     DB_PORT: str = config('DB_PORT', default='5432')
-    
+    DRF_BASE_URL: str = config('DRF_BASE_URL', default='http://127.0.0.1:8000')
     # Armar URL correcta con contraseña codificada
     DATABASE_URL: str = (
         f"postgresql://{DB_USER}:{quote_plus(DB_PASS)}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
