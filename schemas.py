@@ -17,5 +17,13 @@ class EmpresaResponse(BaseModel):
             return f"{settings.DRF_BASE_URL}/Media/{self.UrlImg}"
         return None
 
+    @computed_field
+    @property
+    def FechaRegistroFormateada(self) -> Optional[str]:
+        if self.FechaRegistro:
+            # Formato: dd/mm/aaaa hh:mm:ss
+            return self.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S")
+        return None
+
     class Config:
         from_attributes = True  # Permite convertir objetos SQLAlchemy

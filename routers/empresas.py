@@ -16,7 +16,7 @@ async def listar_empresas(db: Session = Depends(get_db),
     Lista todas las empresas registradas.
     Solo lectura, no requiere autenticación (o sí, según prefieras).
     """
-    empresas = db.query(Empresas).order_by(Empresas.NombreEmpresa).all()
+    empresas = db.query(Empresas).order_by(Empresas.Id).all()
     return empresas
 
 

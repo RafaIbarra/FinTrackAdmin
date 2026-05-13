@@ -1,7 +1,7 @@
 from fastapi import WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
 from database import SessionLocal
-from models import SesionesActivas
+from models import SesionesActivas,Usuarios
 import json
 import asyncio
 from datetime import datetime, timezone
@@ -41,23 +41,30 @@ async def get_usuarios_activos() -> list[dict]:
     try:
         ahora = datetime.now(timezone.utc)
         
-        sesiones = db.query(SesionesActivas).filter(
+        sesiones = db.query(
+            SesionesActivas, 
+            Usuarios.UserName
+        ).join(
+            Usuarios, 
+            SesionesActivas.UsuarioId == Usuarios.Id
+        ).filter(
             SesionesActivas.ConexionActiva == True,
             SesionesActivas.FechaExpiracion > ahora
         ).all()
         
         usuarios = []
-        for sesion in sesiones:
+        for sesion_obj, username in sesiones:
             usuarios.append({
-                "id": sesion.Id,
-                "usuario_id": sesion.UsuarioId,
-                "django_user_id": sesion.IdDjangoUser,
-                "dispositivo": sesion.Dispositivo,
-                "ip": sesion.IpConexion,
-                "conectado_desde": sesion.FechaConexion.isoformat() if sesion.FechaConexion else None,
-                "expira": sesion.FechaExpiracion.isoformat() if sesion.FechaExpiracion else None,
+                "id": sesion_obj.Id,
+                "usuario_id": sesion_obj.UsuarioId,
+                "django_user_id": sesion_obj.IdDjangoUser,
+                "dispositivo": sesion_obj.Dispositivo,
+                "ip": sesion_obj.IpConexion,
+                "username": username,
+                "conectado_desde": sesion_obj.FechaConexion.isoformat() if sesion_obj.FechaConexion else None,
+                "expira": sesion_obj.FechaExpiracion.isoformat() if sesion_obj.FechaExpiracion else None,
             })
-        
+        print(usuarios)
         return usuarios
         
     finally:
