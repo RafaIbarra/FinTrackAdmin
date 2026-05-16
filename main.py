@@ -2,8 +2,9 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from config import settings
-from routers import admin,empresas
+from routers import admin,empresas,usuarios
 from ws_manager import websocket_usuarios, notificar_cambio, manager
+from ws_empresas import websocket_empresas, notificar_cambio_empresas, empresas_manager
 import asyncio
 
 
@@ -23,6 +24,7 @@ app.add_middleware(
 
 app.include_router(admin.router)
 app.include_router(empresas.router)
+app.include_router(usuarios.router)
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "servicio": "admin-fastapi"}
@@ -33,12 +35,28 @@ async def ws_usuarios(websocket: WebSocket):
     await websocket_usuarios(websocket)
 
 
+
 # Opcional: Endpoint HTTP para forzar broadcast (útil para testing)
 @app.post("/api/admin/notificar-usuarios")
 async def trigger_notificacion():
     """Fuerza envío de actualización a todos los WebSocket conectados"""
     await notificar_cambio()
     return {"enviado": True, "clientes_conectados": len(manager.active_connections)}
+
+
+
+@app.websocket("/ws/empresas")
+async def ws_empresas(websocket: WebSocket):
+    await websocket_empresas(websocket)
+
+@app.post("/api/admin/notificar-empresas")
+async def trigger_notificacion_empresas():
+    """Fuerza envío de actualización de empresas a todos los WebSocket conectados"""
+    await notificar_cambio_empresas()
+    return {
+        "enviado": True, 
+        "clientes_conectados": len(empresas_manager.active_connections)
+    }
 
 
 

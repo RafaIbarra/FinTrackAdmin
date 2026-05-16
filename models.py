@@ -28,9 +28,19 @@ class Empresas(Base):
     UrlImg = Column(String(200))
     FechaRegistro = Column(DateTime, index=True)
     
+class MovimientosGastos(Base):
+    __tablename__ = "MovimientosGastos"  # Mismo nombre que Django
     
-    # Relación opcional (si quieres acceder a datos del usuario)
-    # usuario = relationship("Usuarios", back_populates="sesiones")
+    Id = Column(Integer, primary_key=True)
+    EmpresaId =Column(Integer, ForeignKey("Empresas.Id"))
+
+class MovimientosIngresos(Base):
+    __tablename__ = "MovimientosIngresos"  # Mismo nombre que Django
+    
+    Id = Column(Integer, primary_key=True)
+    EmpresaId =Column(Integer, ForeignKey("Empresas.Id"))
+    
+    
 
 
 class AuthUser(Base):
@@ -48,5 +58,10 @@ class Usuarios(Base):
     __tablename__ = "Usuarios"
     
     Id = Column(Integer, primary_key=True)
+    NombreUsuario=Column(String(100))
+    ApellidoUsuario=Column(String(100))
     UserName = Column(String(100))
+    Correo=Column(String(100))
+    FechaRegistro=Column(DateTime, index=True)
+    LastLogin=Column(DateTime, index=True)
     # Agrega otros campos si los necesitas

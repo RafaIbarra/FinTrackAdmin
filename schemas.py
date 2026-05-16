@@ -27,3 +27,16 @@ class EmpresaResponse(BaseModel):
 
     class Config:
         from_attributes = True  # Permite convertir objetos SQLAlchemy
+
+class UsuariosResponse(BaseModel):
+    Id: int
+    NombreUsuario: Optional[str] = None
+    ApellidoUsuario: Optional[str] = None
+    UserName: Optional[str] = None
+    Correo: Optional[str] = None
+    FechaRegistro: Optional[datetime] = None
+    LastLogin: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True  # Permite convertir objetos SQLAlchemy
+    
