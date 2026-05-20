@@ -13,9 +13,10 @@ class EmpresaResponse(BaseModel):
     @computed_field
     @property
     def UrlImgCompleta(self) -> Optional[str]:
-        if self.UrlImg:
+        if self.UrlImg and self.UrlImg.startswith("Empresas/"):
             return f"{settings.DRF_BASE_URL}/Media/{self.UrlImg}"
-        return None
+        
+        return self.UrlImg
 
     @computed_field
     @property
